@@ -1,0 +1,33 @@
+@extends('layouts.app')
+
+@section('content')
+
+                        <a href="{{ route('%%routeGroup%%%%viewName%%.index') }}" title="Назад"><button class="btn btn-warning btn-xs"><i class="fa fa-arrow-left" aria-hidden="true"></i> Назад</button></a>
+                        <a href="{{ route('%%routeGroup%%%%viewName%%.edit' , $%%crudNameSingular%%->%%primaryKey%% ) }}" title="Редактировать"><button class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Редактировать</button></a>
+                        {!! Form::open([
+                            'method'=>'DELETE',
+                            'url' => route('%%routeGroup%%%%crudName%%.destroy',$%%crudNameSingular%%->%%primaryKey%%),
+                            'style' => 'display:inline'
+                        ]) !!}
+                            {!! Form::button('<i class="fa fa-trash-o" aria-hidden="true"></i> Удалить', array(
+                                    'type' => 'submit',
+                                    'class' => 'btn btn-danger btn-xs',
+                                    'title' => 'Удалить',
+                                    'onclick'=>'return confirm("Подтвердите удаление?")'
+                            ))!!}
+                        {!! Form::close() !!}
+                        <br/>
+                        <br/>
+
+                        <div class="table-responsive">
+                            <table class="table table-borderless">
+                                <tbody>
+                                    <tr>
+                                        <th>№</th><td>{{ $%%crudNameSingular%%->%%primaryKey%% }}</td>
+                                    </tr>
+                                    %%formBodyHtmlForShowView%%
+                                </tbody>
+                            </table>
+                        </div>
+
+@endsection

@@ -1,0 +1,218 @@
+<?php
+
+namespace DummyNamespace;
+
+use DummyRootNamespaceHttp\Controllers\Controller;
+
+use DummyRootNamespace{{modelNamespace}}{{modelName}};
+use Illuminate\Http\Request;
+
+class DummyClass extends Controller
+{
+
+   /**
+     * @var {{modelName}} ${{crudName}}
+     */
+    protected ${{crudName}};
+
+    /**
+     * DummyClass constructor.
+     * @param {{modelName}} ${{crudName}}
+     */
+    public function __construct({{modelName}} ${{crudName}}) {
+        $this->{{crudName}} = ${{crudName}};
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @param Request $request
+     *
+     * @return \Illuminate\View\View
+     */
+    public function index(Request $request)
+    {
+        $frd = $request->only([
+        'per_page',
+        'search',
+        ]);
+
+        $perPage = (isset($frd['per_page'])?$frd['per_page']:{{pagination}});
+
+        ${{crudName}} = $this->{{crudName}}->filter($frd)->paginate($perPage);
+
+         $view = view('{{viewPath}}{{viewName}}.index', [
+                            '{{crudName}}'=> ${{crudName}},
+                           'frd'=>$frd,
+                       ]);
+
+         if($request->ajax()){
+            $response = $view->renderSections();
+         }else{
+            $response = $view->render();
+         }
+         return $response;
+    }
+
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @param Request $request
+     *
+     * @return \Illuminate\View\View
+     */
+    public function create(Request $request)
+    {
+    $frd = $request->only([
+    ]);
+    $view = view('{{viewPath}}{{viewName}}.create', [
+                               'frd'=>$frd,
+                           ]);
+
+             if($request->ajax()){
+                $response = $view->renderSections();
+             }else{
+                $response = $view->render();
+             }
+
+         return $response;
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function store(Request $request)
+    {
+        {{validationRules}}
+        $requestData = $request->all();
+        {{fileSnippet}}
+        $this->{{crudName}}->create($requestData);
+
+        $message = [
+            'flash_message'=>[
+                        'type'=>'success',
+                        'text'=>'{{modelName}} добавлен!',
+            ],
+        ];
+
+        if($request->ajax()){
+            $response = response()->json($message);
+        }else{
+            $response = redirect()->back()->with('flash_message', $message['flash_message']);
+        }
+        return $response;
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param {{modelName}} ${{crudNameSingular}}
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return \Illuminate\View\View
+     */
+    public function show(${{crudNameSingular}}, Request $request)
+    {
+          $frd = $request->only([
+
+          ]);
+          $view = view('{{viewPath}}{{viewName}}.show', [
+                                        '{{crudNameSingular}}'=>${{crudNameSingular}},
+                                       'frd'=>$frd,
+                                   ]);
+
+                     if($request->ajax()){
+                        $response = $view->renderSections();
+                     }else{
+                        $response = $view->render();
+                     }
+            return $response;
+
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param {{modelName}} ${{crudNameSingular}}
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return \Illuminate\View\View
+     */
+    public function edit(${{crudNameSingular}}, Request $request)
+    {
+         $frd = $request->only([
+
+                  ]);
+                  $view = view('{{viewPath}}{{viewName}}.edit', [
+                                                '{{crudNameSingular}}'=>${{crudNameSingular}},
+                                               'frd'=>$frd,
+                                           ]);
+
+                             if($request->ajax()){
+                                $response = $view->renderSections();
+                             }else{
+                                $response = $view->render();
+                             }
+                  return $response;
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param {{modelName}} ${{crudNameSingular}}
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function update(${{crudNameSingular}}, Request $request)
+    {
+        {{validationRules}}
+        $requestData = $request->all();
+        {{fileSnippet}}
+        ${{crudNameSingular}}->update($requestData);
+
+          $message = [
+                    'flash_message'=>[
+                                'type'=>'success',
+                                'text'=>'{{modelName}} обновлен!',
+                    ],
+                ];
+
+        if($request->ajax()){
+            $response = response()->json($message);
+        }else{
+            $response = redirect()->back()->with('flash_message', $message['flash_message']);
+        }
+        return $response;
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     * @param {{modelName}} ${{crudNameSingular}}
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
+     */
+    public function destroy(${{crudNameSingular}}, Request $request)
+    {
+         ${{crudNameSingular}}->delete();
+
+        $message = [
+                           'flash_message'=>[
+                                       'type'=>'success',
+                                       'text'=>'{{modelName}} удален!',
+                           ],
+                       ];
+
+        if($request->ajax()){
+            $response = response()->json($message);
+        }else{
+            $response = redirect()->back()->with('flash_message', $message['flash_message']);
+        }
+        return $response;
+    }
+}

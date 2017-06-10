@@ -1,0 +1,32 @@
+{
+    "name": "batyukovart/crud-generator-templates",
+    "license": "MIT",
+    "description": "Laravel 5 CRUD Generator Templates",
+    "keywords": [
+        "laravel",
+        "crud templates",
+        "crud generator templates"
+    ],
+    "version":"1.0.3",
+    "authors": [
+        {
+            "name": "Evgeny Batyukov",
+            "email": "evgeny@batyukov.ru",
+            "homepage": "https://batyukovart.ru"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload":{
+        "psr-4": {
+            "BatyukovArt\\CrudGeneratorTemplates\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "BatyukovArt\\CrudGeneratorTemplates\\CrudGeneratorTemplatesProvider"
+            ]
+        }
+    }
+}
