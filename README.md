@@ -1,5 +1,8 @@
-Templates for https://github.com/appzcoder/crud-generator
+Laravel 5 CRUD Generator Templates
 ========
-Created by BatyukovArt Studio https://batyukovart.ru
----
-### For package: https://github.com/appzcoder/crud-generator
+
+### Requirements
+    Laravel >=5.1
+    PHP >= 5.5.9
+    appzcoder/crud-generator >= 2.0.6
+
