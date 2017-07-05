@@ -6,7 +6,4 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'CrudGeneratorTest' => $vendorDir . '/appzcoder/crud-generator/tests/CrudGeneratorTest.php',
-    'Kernel' => $vendorDir . '/appzcoder/crud-generator/tests/Kernel.php',
-    'TestCase' => $vendorDir . '/appzcoder/crud-generator/tests/TestCase.php',
 );
