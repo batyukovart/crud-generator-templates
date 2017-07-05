@@ -34,39 +34,49 @@
             </tr>
         </thead>
         <tbody>
-            @foreach($%%crudName%% as $%%crudNameSingular%%)
+            @foreach($%%crudName%% as $item)
             <tr>
-                <td>{{ $%%crudNameSingular%%->id }}</td>
+                <td>{{ $item->getKey() }}</td>
                 %%formBodyHtml%%
                 <td>
-                    <a href="{{ route('%%routeGroup%%%%viewName%%.show' , $%%crudNameSingular%%->
-                        %%primaryKey%%) }}" title="Просмотр">
-                        <button class="btn btn-info btn-xs">
+                    <div class="btn-group-vertical">
+                        <div class="btn-group btn-group-sm">
+                              <a href="{{ route('%%routeGroup%%%%viewName%%.show' , $item->
+                        %%primaryKey%%) }}" 
+                        title="Просмотр"
+                        class="btn btn-info">
                             <i class="fa fa-eye" aria-hidden="true"></i>
                             Просмотр
-                        </button>
                     </a>
-                    <a href="{{ route('%%routeGroup%%%%viewName%%.edit' , $%%crudNameSingular%%->
-                        %%primaryKey%% ) }}" title="Редактировать">
-                        <button class="btn btn-primary btn-xs">
+                        </div>
+
+                        <div class="btn-group btn-group-sm">
+                               <a href="{{ route('%%routeGroup%%%%viewName%%.edit' , $item->
+                        %%primaryKey%% ) }}" title="Редактировать"
+                        class="btn btn-primary">
                             <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                             Редактировать
-                        </button>
                     </a>
-                    {!! Form::open([
+                        </div>
+
+   {!! Form::open([
                                                 'method'=>'DELETE',
-                                                'url' => route('%%routeGroup%%%%viewName%%.destroy',$%%crudNameSingular%%->%%primaryKey%%),
-                                                'style' => 'display:inline'
+                                                'url' => route('%%routeGroup%%%%viewName%%.destroy',$item->%%primaryKey%%),
+                                                'class' => 'btn-group btn-group-sm'
                                             ]) !!}
                                                 {!! Form::button('
                     <i class="fa fa-trash-o" aria-hidden="true"></i>
                     Удалить', array(
                                                         'type' => 'submit',
-                                                        'class' => 'btn btn-danger btn-xs',
+                                                        'class' => 'btn btn-danger',
                                                         'title' => 'Delete %%modelName%%',
                                                         'onclick'=>'return confirm("Подтвердите удаление?")'
                                                 )) !!}
                                             {!! Form::close() !!}
+                    </div>
+                  
+                 
+                 
                 </td>
             </tr>
             @endforeach
