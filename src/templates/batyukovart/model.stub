@@ -4,10 +4,21 @@ namespace DummyNamespace;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\DB;
 
 class DummyClass extends Model
 {
     use SoftDeletes;
+
+    /**
+     * @var string
+     */
+    #protected $connection = '';
+
+    /**
+     * @var bool
+     */
+    public $timestamps = true;
 
     /**
      * The database table used by the model.
@@ -25,5 +36,45 @@ class DummyClass extends Model
      */
     protected $fillable = {{fillable}};
 
+     /**
+     * Standard values used when instantiating a class
+     *
+     * @var array
+     */
+    private $defaultValues = [
+
+    ];
+
     {{relationships}}
+
+    /**
+     * Setting standard class values
+     *
+     * @return void
+     */
+    public function setDefaultValues()
+    {
+        $columns = DB
+        ::connection($this->connection)
+        ->getSchemaBuilder()
+        ->getColumnListing($this->table);
+
+        foreach ($columns as $columnName) {
+            if ($this->primaryKey === $columnName) {
+                continue;
+            }elseif ($this->{$columnName} === null) {
+                if (isset($this->defaultValues[$columnName])) {
+                    $this->{$columnName} = $this->defaultValues[$columnName];
+                }else{
+                    $this->{$columnName} = '';
+                }
+            } 
+        }
+    } 
+ 
+    public function scopeFilter($query,$frd){
+        if (isset($frd['search']{0})) {
+            // $query->{{whereSnippet}};
+        }  
+    }
 }

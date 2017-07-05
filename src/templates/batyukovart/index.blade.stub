@@ -1,70 +1,79 @@
 @extends('layouts.app')
 
 @section('content')
-
 <div class="row">
-<div class="col-sm-3">
- <a href="{{ route('%%routeGroup%%%%viewName%%.create') }}" class="btn btn-success" title="Создать новую модель «%%modelName%%»">
-                            <i class="fa fa-plus" aria-hidden="true"></i> Создать
-                        </a>
-</div>
-<div class="col-sm-9">
-  {!! Form::open(['method' => 'GET', 'route' => ['%%routeGroup%%%%viewName%%.index']
+    <div class="col-sm-3">
+        <a href="{{ route('%%routeGroup%%%%viewName%%.create') }}" class="btn btn-success" title="Создать"> <i class="fa fa-plus" aria-hidden="true"></i>
+            Создать
+        </a>
+    </div>
+    <div class="col-sm-9">
+        {!! Form::open(['method' => 'GET', 'route' => ['%%routeGroup%%%%viewName%%.index']
                         , 'class' => 'navbar-form navbar-right'
                         , 'role' => 'search'])  !!}
-
-                        <div class="input-group">
-                            <input type="text" class="form-control" name="search" placeholder="Поиск..." value="{{ isset($frd['search']) ? $frd['search'] : null  }}">
-                            <span class="input-group-btn">
-                                <button class="btn btn-outline-secondary" type="submit">
-                                    <i class="fa fa-search"></i>
-                                </button>
-                            </span>
-                        </div>
-                        {!! Form::close() !!}
-</div>
+        <div class="input-group">
+            <input type="text" class="form-control" name="search" placeholder="Поиск..." value="{{ isset($frd['search']) ? $frd['search'] : null  }}">
+            <span class="input-group-btn">
+                <button class="btn btn-default btn-outline-secondary" type="submit"> <i class="fa fa-search"></i>
+                </button>
+            </span>
+        </div>
+        {!! Form::close() !!}
+    </div>
 </div>
 
-
-
-
-                        <br/>
-                        <br/>
-                        <div class="table-responsive">
-                            <table class="table table-sm table-borderless">
-                                <thead>
-                                    <tr>
-                                        <th>№</th>%%formHeadingHtml%%<th>Действия</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                @foreach($%%crudName%% as $item)
-                                    <tr>
-                                        <td>{{ $item->id }}</td>
-                                        %%formBodyHtml%%
-                                        <td> 
-                                            <a href="{{ route('%%routeGroup%%%%viewName%%.show' , $item->%%primaryKey%%) }}" title="Просмотр"><button class="btn btn-info btn-xs"><i class="fa fa-eye" aria-hidden="true"></i> Просмотр</button></a>
-                                            <a href="{{ route('%%routeGroup%%%%viewName%%.edit' , $item->%%primaryKey%% ) }}" title="Редактировать"><button class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Редактировать</button></a>
-                                            {!! Form::open([
+<br/>
+<br/>
+<div class="table-responsive">
+    <table class="table table-sm table-borderless">
+        <thead>
+            <tr>
+                <th>№</th>
+                %%formHeadingHtml%%
+                <th>Действия</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach($%%crudName%% as $%%crudNameSingular%%)
+            <tr>
+                <td>{{ $%%crudNameSingular%%->id }}</td>
+                %%formBodyHtml%%
+                <td>
+                    <a href="{{ route('%%routeGroup%%%%viewName%%.show' , $%%crudNameSingular%%->
+                        %%primaryKey%%) }}" title="Просмотр">
+                        <button class="btn btn-info btn-xs">
+                            <i class="fa fa-eye" aria-hidden="true"></i>
+                            Просмотр
+                        </button>
+                    </a>
+                    <a href="{{ route('%%routeGroup%%%%viewName%%.edit' , $%%crudNameSingular%%->
+                        %%primaryKey%% ) }}" title="Редактировать">
+                        <button class="btn btn-primary btn-xs">
+                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                            Редактировать
+                        </button>
+                    </a>
+                    {!! Form::open([
                                                 'method'=>'DELETE',
-                                                'url' => route('%%routeGroup%%%%viewName%%.destroy',$item->%%primaryKey%%),
+                                                'url' => route('%%routeGroup%%%%viewName%%.destroy',$%%crudNameSingular%%->%%primaryKey%%),
                                                 'style' => 'display:inline'
                                             ]) !!}
-                                                {!! Form::button('<i class="fa fa-trash-o" aria-hidden="true"></i> Удалить', array(
+                                                {!! Form::button('
+                    <i class="fa fa-trash-o" aria-hidden="true"></i>
+                    Удалить', array(
                                                         'type' => 'submit',
                                                         'class' => 'btn btn-danger btn-xs',
                                                         'title' => 'Delete %%modelName%%',
                                                         'onclick'=>'return confirm("Подтвердите удаление?")'
                                                 )) !!}
                                             {!! Form::close() !!}
-                                        </td>
-                                    </tr>
-                                @endforeach
-                                </tbody>
-                            </table>
-                            <div class="pagination-wrapper"> {!! $%%crudName%%->appends(['search' => Request::get('search')])->render() !!} </div>
-                            </div>
-
-
-
+                </td>
+            </tr>
+            @endforeach
+        </tbody>
+    </table>
+    <div class="pagination-wrapper">
+        {!! $%%crudName%%->appends(['search' => Request::get('search')])->render() !!}
+    </div>
+</div>
 @endsection

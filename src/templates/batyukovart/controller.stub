@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 class DummyClass extends Controller
 {
 
-   /** 123
+   /**
      * @var {{modelName}} ${{crudName}}
      */
     protected ${{crudName}};
