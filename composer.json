@@ -15,8 +15,7 @@
             "homepage": "https://batyukovart.ru"
         }
     ],
-    "minimum-stability": "dev",
-    "require": {},
+    "minimum-stability": "stable", 
     "autoload":{
         "psr-4": {
             "BatyukovArt\\CrudGeneratorTemplates\\": "src/"
@@ -28,5 +27,11 @@
                 "BatyukovArt\\CrudGeneratorTemplates\\CrudGeneratorTemplatesProvider"
             ]
         }
+    },
+    "require-dev": {
+        "appzcoder/crud-generator": "^2.0"
+    },
+    "require": {
+        "laravelcollective/html": "^5.4"
     }
 }
