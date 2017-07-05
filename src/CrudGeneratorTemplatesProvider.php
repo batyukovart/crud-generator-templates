@@ -13,6 +13,11 @@ class CrudGeneratorTemplatesProvider extends ServiceProvider
      */
     public function boot()
     {
+
+        $this->publishes([
+            __DIR__ . '/../config/crudgenerator.php' => config_path('crudgenerator.php'),
+        ]);
+
         $this->publishes([
             __DIR__ . '/templates/' => base_path('resources/crud-generator/'),
         ]);
