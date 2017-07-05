@@ -7,7 +7,8 @@
         "crud templates",
         "crud generator templates"
     ],
-    "version":"1.0.6",
+    "version":"1.0.7",
+    "minimum-stability":"stable",
     "authors": [
         {
             "name": "Evgeny Batyukov",
@@ -15,7 +16,6 @@
             "homepage": "https://batyukovart.ru"
         }
     ],
-    "minimum-stability": "stable",
     "autoload":{
         "psr-4": {
             "BatyukovArt\\CrudGeneratorTemplates\\": "src/"
