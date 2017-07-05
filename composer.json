@@ -8,7 +8,7 @@
         "crud generator templates"
     ],
     "version":"1.0.7",
-    "minimum-stability":"stable",
+    "prefer-stable": true,
     "authors": [
         {
             "name": "Evgeny Batyukov",
